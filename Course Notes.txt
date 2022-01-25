@@ -1,0 +1,285 @@
+
+///////////////////////////////
+// Unreal Engine Development //
+///////////////////////////////
+
+
+/*--- Ch 1: Intro & Setup ---*/
+
+1.2: Overview, Community
+  + Tips
+    - Do the challenges!
+    - Slides are available on google.
+  + Other
+    - Ask for help! -> community.gamedev.tv
+      > Active, populated website.
+      > Also, there's discord.
+    - Basic google foo (duh)
+
+1.3: Install Visual Studio Community 2019 (Has compiler)
+
+1.7: Install Unreal Engine 4.22
+
+1.8: Install Visual Studio Code
+  + 3 Step Dev Process
+    - Write Code, Compile Code, Run Code
+  + To compile w/ VSCode:
+    - Open "Develop Command Prompy for VS 2019" and run "code".
+    - This opens VSCode with the ability to compile!
+      > "cl" command in ide terminal
+    - Also, set default terminal to Command Prompt (not Powershell)
+
+1.10: Wrapping Up
+  + Section 2 - Focus on C++
+  + Section 3 - C++ w/ Unreal
+  + I made it! :D
+
+
+/*--- Ch 2: Triple X & Pure C++ ---*/
+
+2.12: Triple X Design Doc
+  + Number puzzle game w/ 3 unknown numbers. Gets harder as it goes.
+  + Rules: Generate and ask for 3 numbers which multiply to X and add to Y.
+  + Purpose: Get used to c++ syntax.
+
+2.13: Structure of C++
+  + C++ requires method declaration before use.
+
+2.14: First Program
+  + Need main() function in C++.
+  + Return value: 0 = success. Anything else = failure.
+  + Compile: cl File.cpp
+  + Run: File
+
+2.17: Hello World
+  + Preprocessor Directive - A thing processed before the code is compiled.
+    > Ex: #include <header>
+    > No semicolon!
+  + namespace::functionCall - Prevents naming conflicts.
+    > :: is scope operator. Specifies scope to check for function.
+
+2.20: Expressions vs Declarations (Lines ending in semicolon)
+  + Exprssions - Lines that do a thing.
+  + Declarations - Lines that declare a thing (sometimes do a thing too).
+
+2:22: Variable Naming
+  + UpperCamelCase :/
+  + Also, check the Unreal docs for more on naming conventions.
+
+2.23: User Input
+  + cout is shortened "character output"
+  + << is Insertion Operator (adds to output stream)
+  + >> is Extraction Operator (reads from input stream)
+
+
+/*--- Ch 3: Bulls & Cows ---*/
+
+3.31: Introduction
+  + Guess the Isogram!
+    > Letter that's in the word & right place is "Bull".
+    > Letter that's in the word, but wrong place is "Cow".
+    > Letter that isn't in word, get nothing.
+
+3.35: Error: Game Module X Could Not Be Loaded
+  + Delete Binaries folder in project directory! Unreal will rebuild them.
+
+3.36: Log Location
+  + Project/Saved/Project.log
+
+3.39: Actors
+  + Definition: Anything that can be place*****d in our level.
+  + Ex: Static mesh, player start, etc.
+  + Have: Transform, scale, rotation, etc.
+
+3.41: Landscape Editing
+  + Super powerful! Sculpting built in with support for dynamic materials
+    based on surface normals.
+
+3.42: IDE w/ Unreal Engine
+  + Can set default code editor in UE4 Preferences
+
+3.44: Actors & Components
+  + Unreal Basics
+    > An Actor is a container that can have many Components. Many Component types.
+    > BullCowCartridge is our component, which enables terminal & typing interaction!
+  + Components
+    > StaticMeshComponent - A static mesh (duh).
+    > Can add children to Components! Lights, particles, physics, etc.
+  + This step
+
+3.X: C++ Coding in Unreal
+  + Syntax
+    > Unreal Engine handles main() function. Out of our hands.
+    > BeginPlay() // Called upon game launch. Same as Unity.
+    > OnInput() // Called upon "enter" keystroke and passed user input.
+      - This project, not Unreal
+    > #pragma once ensures header file is only included one time.
+  + Save code in VSCode, compile in Unreal (sometimes twice), profit!
+  + Unreal C++ Types
+    > Must #include "CoreMinimal.h" in header files to use Unreal types.
+    > String > FString
+      - Use TEXT() macro when assigning! Otherwise, uses wrong encoding.
+        Bad for multiplatform.
+      - Formatting - FString::Printf();
+        + Data placeholders: %s for string, %i for integer, %c for char, etc.
+        + Ex: PrintLine(FString::Printf(TEXT("My variable: %s"), *Variable));
+        + Quick note on the pointer here: pointers are required for types with a dynamic
+          size in memory. Integers have a constant size. Strings vary in length.
+      - An array of Chars with a final '\0' (null) character appended to the end.
+        + Therefore, length is inflated by 1 in C++. "bread" has length 6.
+        + Equivalent to: char Variable[] = "value";
+        + Equivalent to: TCHAR Variable[] = TEXT("value"); // Unreal version.
+        + Or: TCHAR Variable[] = {TEXT('v'), TEXT('a'), TEXT('l'), TEXT('u'), TEXT('e'), TEXT('\0')};
+        + To Access Char: Variable[0];
+    > int > int32
+    > char > TCHAR
+    > array > TArray (A collection!)
+      - Ex: const TArray<type> Variable = { Element1, Element2, etc... };
+      - .Num(); // Returns length! Similar to .len(); but for an array.
+      - Can add items to end of array with .Add() or .Emplace(). // Emplace is more performant.
+      - Can remove matching elements with Remove(). // Removes all instances!
+      - Can also use RemoveAt(). // Removes by index.
+      - Can iterate through collections with custom for loop:
+          for (type TempVariable: Collection) {
+            // Code Here
+          }
+  + Member Variables
+    > Variables which need to be accessed across multiple methods in the same file
+      should be declared in the header and initialized in the appropriate place
+      (in this case, BeginPlay()).
+  + Member Functions
+    > Similar to member variable. Defined in header, with implementation in cpp file
+      as: ReturnType ClassName::FunctionName() {}
+    > Can be made constant when not modifying any member variables of class. Cannot call
+      non-const functions from these.
+        - Ex: void ExampleFunction(String parameter) const;
+        - It's worth being religious about this! Keep your state clean.
+  + VSCode
+    > Find & Replace: highlight txt > Edit > Replace in Files > deselect unwanted > Replace All
+    > alt + click is multi select! Pretty neat.
+    > Can also use smart selection tools to edit multi-line. Probably just gonna use regex in
+      Sublime for my purposes.
+  + Dot Operator
+    > Calls function on variable class. Like :: (scope operator), but works on
+      object instance, not class.
+    > Ex: Variable.Len(); // Gets length
+  + Increment/Decrement Operators
+    > Variable++, Variable-- // Post, references value then does operation
+    > ++Variable, --Variable // Pre, does operation and uses result
+  + Parameters vs Arguments
+    > Parameter is placeholder variable in function definition.
+    > Argument is actual value passed to function.
+    > Ex:
+      void ProcessGuess(FString Guess); // Declaration
+      ProcessGuess(StringVariableHere); // Function Call
+    > Parameter/Argument order maters.
+  + Looping
+    > For Loop Ex:
+        for (int32 i = 0; i < 10; i++) {
+          // Code Here
+        }
+    > While Loop Ex:
+        while (condition) {
+          // Execute Code
+        }
+    > Escaping Loops
+      - continue keyword will jump to the end of the current loop iteration, but continue looping.
+      - break keyword will jump to the end of *all* iterations of the containing loop.
+  + Unreal includes a utility function to read from text files!
+    > FFileHelper::LoadFileToStringArray
+    > Detailed Instructions in lesson 3.70
+  + Logical Operators: !, &&, ||
+
+3.76: Memory & Types
+  + int32 - 32 bit integer, 4 Bytes
+  + bool - 1 bit, 1 Byte
+  + char - 1 Byte per character.
+  + string - dynamic! # of char Bytes + null char.
+  + float - 32 bit, 4 Bytes.
+  + Big vs Little Endian
+    > Little: Significant part of number goes in last mem address. (Ex: 0x03)
+    > Big: Significant part of number goes in first mem address. (Ex: 0x00)
+    > Basically whether data is represented front to back or back to front in mem.
+
+3.77: Passing by Reference
+  + Copying values every time they're passed into a function is a waste of memory! When
+    they don't need to be altered anyway. We should often instead pass by reference.
+  + & is Dereference Operator. It returns the address of the referenced variable.
+  + References
+    > Must be initialized.
+    > Cannot be reassigned.
+  + Ex: void ClassName::FunctionName(const FString &Input) {}
+    > This line passes Input into our function by reference! Const means cannot be changed.
+  + Ex:
+      int32 a = 0;
+      int32 b = 5;
+      int32 &ref = a; // References the same location as a in memory. Printing ref prints 0.
+      ref = b; // This doesn't change reference! Overrites value at mem address.
+      const int32 &ref = a; // Safer declaration. Now will throw compile error if attempt to reassign.
+  + When passing heavy data types (FString, TArray, etc), best to pass by reference to avoid
+    duplication.
+
+3.78: Random
+  + FMath::RandRange(min, max); // Check docs for deets, incliding header import!
+
+3.80: C++ Supports Lambdas! :D
+  + Ex:
+      // Returns a list of all the words less than 10 chars in the provided file. 
+	  FFileHelper::LoadFileToStringArrayWithPredicate(WordList, *Path, [](const FString &Word) {
+	    return Word.Len() < 10; 
+	  })
+  + Static Functions: Functions which don't use any member variables of their containing class
+    and can therefore be referenced independent of any instance.
+    > Ex: FString:Printf(), FMath::Lerp(), etc.
+    > Syntax:
+        static bool IsIsogram(const FString &Word); // Header
+        bool ClassName::IsIsogram(const FString &Word); // Cpp File (no static!)
+    > Reminder: A const function doesn't change any of the members in its calling instance. A
+      static function isn't even called from an instance because it doesn't read any members.
+
+3.81: Out Parameters
+  + Definition: Parameters passed by reference, but not marked const! In other words, we're
+    passing a value by reference with the explicit intention of changing its value in memory.
+  + When you see a parameter passed by reference without a const, it's an Output Parameter.
+  + Reminder: References must be initialized before they're accessed! Which makes code like the
+    below example risky:
+   	  // Cpp Usage
+      int32 a, b;
+      FunctionWithOutParams(input, a, b); // We're trusting that this function initializes the
+                                          // values before setting them. If not, we get a runtime
+                                          // error. I'mma say this is bad practice, but apparently
+                                          // it happens all the time in Unreal. :/
+      // Cpp Definition
+      void ClassName::FunctionWithOutParams(const FString &inut, int32 &a, int32 &b) { ... }
+
+3.83: Structs
+  + Definition: A user-defined data type. Defined in header file.
+  + Structs have a default visibility of public, unlike classes which are private. Otherwise,
+    they're very similar. Used in different ways.
+  + Header Ex:
+      struct FBullCowCount {
+        int32 BullCount = 0; // Can initialize members in header file
+        int32 CowCount = 0;
+      };
+  + Cpp Ex:
+      FBullCowCount Count;
+      Count.BullCount = 5; // Dot operator used for struct member access!
+  + Cpp Ex 2:
+      FBullCowCount Count = {2, 3}; // Can initialize members this way. Pretty weird imo.
+
+
+/*--- Ch 4: Building Escape ---*/
+
+4.86: Welcome
+  + Topics
+    - Classes & OPP
+    - Components & Actors
+    - Pointers & Memory Management
+    - Level Greyboxing
+    - Collisions, Trigger Volumes, Line Tracing
+    - Input Binding
+  + The Game
+    - We'll be able to run around an area, pick up an object, drop it in a trigger
+      volume, and escape. :)
+
+4.87: Project Setup
