@@ -1,7 +1,8 @@
 {
 	"files.exclude": {
-		"E:/Game Dev/Unreal Projects/Udemy 2022/Program 3/Escape/Escape/.vscode": true,
-		"E:/Game Dev/Unreal Projects/Udemy 2022/Program 3/Escape/Escape/Content": true,
-		"E:/Game Dev/Unreal Projects/Udemy 2022/Program 3/Escape/Escape/Intermediate": true
+		"E:/Game Dev/Unreal Projects/Udemy 2022/Project 3/Escape/.vscode": true,
+		"E:/Game Dev/Unreal Projects/Udemy 2022/Project 3/Escape/Content": true,
+		"E:/Game Dev/Unreal Projects/Udemy 2022/Project 3/Escape/Intermediate": true,
+		"E:/Game Dev/Unreal Projects/Udemy 2022/Project 3/Escape/Saved": true
 	}
 }

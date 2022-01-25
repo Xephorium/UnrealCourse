@@ -282,4 +282,88 @@
     - We'll be able to run around an area, pick up an object, drop it in a trigger
       volume, and escape. :)
 
-4.87: Project Setup
+4.88: Pointer Primer
+  + Generally a pointer when you see * next to a type or variable.
+  + Definition: It's just a variable that holds a memory address.
+  + Usage: Allows you to send heavy objects around without duplication (like references).
+  + Disadvantages: Can lose access to data in memory.
+  + Note: References cannot be assigned a new address! Remain constant until variable
+          goes out of scope. Pointers can be assigned a new address. Both let you access
+          the data they point to in memory. **************** IMPORTANT *****************
+  + Syntax: FType *NameOfPointer;
+    - FType must match thing pointer is pointing to in memory.
+  + Example: AActor *SomeActor;
+    - To access a member function of SomeActor, we'd de-reference the pointer.
+    - Invocation: (*SomeActor).GetName(); // . has higher ooo than *, so () needed.
+    - Invocation: SomeActor->GetName(); // Equivalent to above.
+    - "->" is arrow operator! Shorthand for dereference pointer, then access member.
+
+4.89: Unreal's Classes & Components
+  + Inheritance: An "is a" relationship between classes.
+    - Hierarchical & carefully organized. Requires deliberate planning.
+  + Component: A "has a" relationship between classes.
+    - Can append components as needed. Great for dynamically sharing code.
+    - Mesh, collision, audio can only be components.
+    - Actors can have custom components that we build.
+  + Unreal Class Inheritance Example
+      Actor // Reminder: Anything you can place in scene
+        Pawn
+          Character
+  + UE4 Class Viewer
+    - Access: Window > Developer Tools > Class Viewer
+  + UE4 C++ Notes
+    - #include "ClassName.generated.h" must be the final include! Will get errors if not.
+    - When UE4 generated code files don't recognize imports: File > Refresh VSCode Project
+    - Deleting a class:
+      1. Make sure not a component on any actor. If so, will appear to delete, but remain
+         when you reopen the editor? (Insane)
+      2. Close UE4, browse to files in explorer, and delete them. (Omg, this engine is a joke)
+      3. Delete Project/Binaries folder. (It somehow keeps getting worse)
+      4. Reopen UE4 & Refresh VSCode Project. (Why did I decide to learn this)
+    - Logging
+      > Basic Format: UE_LOG(Cetegory, Verbosity TEXT("Message"));
+      > Example: UE_LOG(LogTemp, Warning, TEXT("Code running!"));
+      > Verbosity flags: Display=grey, Warning=yellow, Error=red
+
+4.93: Pointer Practice
+  + Section Overview
+    - GetOwner() function returns actor to which a component is attached!
+    - AActor* is a pointer to an actor.
+    - Can use arrow operator (->) to access Actor members.
+      > GetName() // Returns Actor name (#include "GameFramework/Actor.h")
+  + UE4 C++ Notes
+    - Primitives don't have members! int32, bool, etc. But classes do. FString, etc.
+    - Helpful pointer example:
+        FString LogOutput = TEXT("Hello");
+        FString *Pointer = &LogOutput; // Creates pointer of type FString and
+                                       // assigns it the address of LogOutput.
+
+        LogOutput.Len();  // Returns length of string.
+        (*Pointer).Len(); // Same, but with a pointer!
+        Pointer->Len();   // Same, but with a pointer & arrow operator!
+
+        // Okay, so the line below actually won't work! 
+        UE_LOG(LogTemp, Warning, TEXT("%s"), *Pointer);
+        // Because the UE_LOG function is internally using the pure C++ printf()
+        // to format, and (remember) printf() needs to be passed a string with an
+        // asterisk for a normal FString variable, we need to first dereference the
+        // pointer variable and then include the expected * for a string. 
+        UE_LOG(LogTemp, Warning, TEXT("%s"), **Pointer);
+        // Apparently, the expected * for printf() isn't actually even dereferencing.
+        // The printf() function overloads the * operator to check if the passed char
+        // array has Len>0 and return an empty char array if not. So there's a dereference
+        // followed by an overloaded asterisk operator here. The earlier lecture
+        // was a lie that was helpful for introducing pointers. :O
+    - Printing the name of a component's owning actor:
+        AActor *Owner = GetOwner(); // Returns a pointer to the Actor
+        FString OwnerName = Owner->GetName(); // Accesses the name member of the dereferenced Actor
+        UE_LOG(LogTemp, Warning, TEXT("Owner Name: %s"), *OwnerName); // Prints name! :)
+    Printing the name of a component's owning actor (the easy way):
+        FString OwnerName = GetOwner()->GetName();
+        UE_LOG(LogTemp, Warning, TEXT("Owner Name: %s"), *OwnerName);
+
+4.93: Getting Our Actors's Transform
+  + New Type: FVector!
+    - Contains three values X, Y, and Z.
+    - An example is an actor's location in the world.
+  + Lots of notes and implementation examples in "WorldPosition.cpp"

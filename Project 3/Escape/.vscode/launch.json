@@ -5,7 +5,7 @@
 			"name": "Escape (Debug)",
 			"request": "launch",
 			"preLaunchTask": "Escape Win64 Debug Build",
-			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Binaries\\Win64\\Escape-Win64-Debug.exe",
+			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Binaries\\Win64\\Escape-Win64-Debug.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
@@ -18,7 +18,7 @@
 			"name": "Escape (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "Escape Win64 DebugGame Build",
-			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Binaries\\Win64\\Escape-Win64-DebugGame.exe",
+			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Binaries\\Win64\\Escape-Win64-DebugGame.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
@@ -31,7 +31,7 @@
 			"name": "Escape (Development)",
 			"request": "launch",
 			"preLaunchTask": "Escape Win64 Development Build",
-			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Binaries\\Win64\\Escape.exe",
+			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Binaries\\Win64\\Escape.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
@@ -44,7 +44,7 @@
 			"name": "Escape (Shipping)",
 			"request": "launch",
 			"preLaunchTask": "Escape Win64 Shipping Build",
-			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Binaries\\Win64\\Escape-Win64-Shipping.exe",
+			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Binaries\\Win64\\Escape-Win64-Shipping.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
@@ -57,7 +57,7 @@
 			"name": "Escape (Test)",
 			"request": "launch",
 			"preLaunchTask": "Escape Win64 Test Build",
-			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Binaries\\Win64\\Escape-Win64-Test.exe",
+			"program": "E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Binaries\\Win64\\Escape-Win64-Test.exe",
 			"args": [
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
@@ -72,7 +72,7 @@
 			"preLaunchTask": "EscapeEditor Win64 Debug Build",
 			"program": "C:\\Program Files\\Epic Games\\UE_4.22\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
 			"args": [
-				"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Escape.uproject"
+				"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Escape.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
 			"stopAtEntry": false,
@@ -86,7 +86,7 @@
 			"preLaunchTask": "EscapeEditor Win64 DebugGame Build",
 			"program": "C:\\Program Files\\Epic Games\\UE_4.22\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Escape.uproject"
+				"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Escape.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
 			"stopAtEntry": false,
@@ -100,7 +100,7 @@
 			"preLaunchTask": "EscapeEditor Win64 Development Build",
 			"program": "C:\\Program Files\\Epic Games\\UE_4.22\\Engine\\Binaries\\Win64\\UE4Editor.exe",
 			"args": [
-				"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Escape.uproject"
+				"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Escape.uproject"
 			],
 			"cwd": "C:\\Program Files\\Epic Games\\UE_4.22",
 			"stopAtEntry": false,
@@ -117,7 +117,7 @@
 			"args": [
 				"-projectfiles",
 				"-vscode",
-				"-project=\"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Program 3\\Escape\\Escape\\Escape.uproject\"",
+				"-project=\"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 3\\Escape\\Escape.uproject\"",
 				"-game",
 				"-engine"
 			],
