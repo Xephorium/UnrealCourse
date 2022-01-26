@@ -381,3 +381,8 @@
   + Other Notes
     - Order matters?
     - Press t to toggle transparency mode, which allows you to change individual faces.
+
+4.100: Rotating An Actor w/ Code
+  + Notes
+    - Need to check roll, pitch, yaw. Methods won't necessarily use X, Y, Z? >_>
+    - Cannot call GetOwner() in constructor!
