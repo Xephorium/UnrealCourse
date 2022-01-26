@@ -367,3 +367,17 @@
     - Contains three values X, Y, and Z.
     - An example is an actor's location in the world.
   + Lots of notes and implementation examples in "WorldPosition.cpp"
+
+4.95: Importing Custom Meshes
+  + Buncha review
+    - Importing models, adding textures/materials, etc
+
+4.96: Binary Space Partitioning (BSP)
+  + Definition: Quick level editor for mockup! UV unwrapped dynamic geo real quick.
+  + Access: Modes > Place > Geometry
+  + Settings - Available under Brush Settings on right
+    - Can adjust dimensions, stairs, etc.
+    - Can bake down to static mesh
+  + Other Notes
+    - Order matters?
+    - Press t to toggle transparency mode, which allows you to change individual faces.
