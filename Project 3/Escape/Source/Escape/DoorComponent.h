@@ -18,8 +18,21 @@ class ESCAPE_API UDoorComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+public:
+	float TargetAngle = 90.f;
+	float AnimationLength = 1.3f;
+
+private:
+	float StartingYaw = 0.f;
+	float CurrentYaw = 0.f;
+	float TargetYaw = 0.f;
+
+	float CurrentTime = 0.f;
+	float EndTime = 0.f;
+
+	bool RotationComplete = false; // For Optimization
+
 public:	
-	// Sets default values for this component's properties
 	UDoorComponent();
 
 protected:
@@ -32,5 +45,7 @@ public:
 		FActorComponentTickFunction* ThisTickFunction
 	) override;
 
+private:
+	void ImmediatelyOpenDoor() const;
 		
 };

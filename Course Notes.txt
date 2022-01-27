@@ -386,3 +386,31 @@
   + Notes
     - Need to check roll, pitch, yaw. Methods won't necessarily use X, Y, Z? >_>
     - Cannot call GetOwner() in constructor!
+
+4.101: Collisions
+  + Solutions to Collision
+    1. Use Complex as Simple
+       - Terribe for optimization.
+       - Don't do this.
+    2. Build a Collision Mesh in Unreal.
+       - Start with BSP mesh, convert to mesh, give collision, set invisivle.
+       - Yuck.
+    3. Build a Proper Collision Mesh
+       - Upon import, UE4 looks for objects named a certain way to
+         automatically identify which is for collision.
+       - Naming:
+           SM_Object_Name   // The visible object
+           UCX_Object_Name  // The collision mesh
+  + Redirectors
+    - Hidden files that fix references to deleted meshes by forwarding to a
+      new mesh.
+    - Can be shown in Content Browser by Filters > Other Filters > Show Redirectors
+    - Right Click > Fix Up Redirectors // Removed old references! Do this ocassionally.
+
+4.102: Interpolation
+  + Function
+      FMath::Lerp(Start, End, Percent_Distance);
+  + Note: This lecture is kind of a mess tbh. The provided solution is inelegant,
+          framerate dependent, and terrible for performance. So I'm more or less
+          abandoning it for my an interpolation method that uses a couple utility
+          functions provided by Unreal. Checkout DoorComponent.cpp for details.
