@@ -414,3 +414,10 @@
           framerate dependent, and terrible for performance. So I'm more or less
           abandoning it for my an interpolation method that uses a couple utility
           functions provided by Unreal. Checkout DoorComponent.cpp for details.
+
+4.103: Exposing Parameters to the Editor
+  + Can be done with another preprocessor!
+      UPROPERTY(EditAnywhere)
+
+4.105: Asset Naming Conventions
+  + A Bunch: https://unrealcommunity.wiki/assets-naming-convention-qqp2b5m1

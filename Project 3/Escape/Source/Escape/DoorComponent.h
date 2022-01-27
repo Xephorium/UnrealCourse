@@ -19,7 +19,9 @@ class ESCAPE_API UDoorComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
+    UPROPERTY(EditAnywhere)
 	float TargetAngle = 90.f;
+	UPROPERTY(EditAnywhere)
 	float AnimationLength = 1.3f;
 
 private:
