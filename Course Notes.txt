@@ -421,3 +421,9 @@
 
 4.105: Asset Naming Conventions
   + A Bunch: https://unrealcommunity.wiki/assets-naming-convention-qqp2b5m1
+
+4.107: Trigger Volumes
+  + Can assign objects to component members through the editor! :O Same as Unity!
+  + Polling vs Events
+    - Polling: Constantly checking a condition
+    - Event: When event is fired, thing happens

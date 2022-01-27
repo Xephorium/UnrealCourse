@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/TriggerVolume.h"
 #include "DoorComponent.generated.h"
 
 /*
@@ -23,6 +24,10 @@ public:
 	float TargetAngle = 90.f;
 	UPROPERTY(EditAnywhere)
 	float AnimationLength = 1.3f;
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume *PressurePlate;
+	UPROPERTY(EditAnywhere)
+	AActor *TriggeringActor;
 
 private:
 	float StartingYaw = 0.f;
@@ -32,7 +37,10 @@ private:
 	float CurrentTime = 0.f;
 	float EndTime = 0.f;
 
-	bool RotationComplete = false; // For Optimization
+	bool RotationStarted = false;
+	bool RotationComplete = true;
+
+	bool IsDoorOpen = false;
 
 public:	
 	UDoorComponent();
@@ -48,6 +56,9 @@ public:
 	) override;
 
 private:
-	void ImmediatelyOpenDoor() const;
+	void OpenDoorImmediately() const;
+	void InitializeAnimationVariables();
+	void OpenDoorWhenTriggered(float DeltaTime);
+
 		
 };
