@@ -1,3 +1,4 @@
+#include "DrawDebugHelpers.h"
 #include "GrabberComponent.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/PlayerController.h"
@@ -38,7 +39,7 @@ void UGrabberComponent::TickComponent(
 ) {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// Get Player View
+	// Get Player Location/Rotation
 	FVector PlayerLocation = FVector();
 	FRotator PlayerRotation = FRotator();
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
@@ -46,9 +47,20 @@ void UGrabberComponent::TickComponent(
 		OUT PlayerRotation
 	);
 
-	UE_LOG(LogTemp, Warning, TEXT("Player Location: %s"), *PlayerLocation.ToString());
+	//UE_LOG(LogTemp, Warning, TEXT("Player Location: %s"), *PlayerLocation.ToString());
 
-	// Raycast some distance from player view
+	// Draw Raycast
+	FVector RaycastEndPoint = PlayerLocation + PlayerRotation.Vector() * PlayerReach;
+	DrawDebugLine(
+		GetWorld(),
+		PlayerLocation,
+		RaycastEndPoint,
+		FColor(0, 255, 0),
+		false,
+		0.f,
+		0,
+		0.5f
+	);
 
 	// Identify object in view (and whether we can interact)
 }

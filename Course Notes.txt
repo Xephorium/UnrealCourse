@@ -477,3 +477,27 @@
     - It's recommended that we define Macros in C++, not the header file. This is
       because headers might be included in many places and we don't want our custom
       Macros to unexpectly change the behavior of other people's code.
+  + Vactor Primer
+    - A vector is basically two points along a line trace: start and end.
+    - Can convert an FRotator into an FVector! Resulting vector is normalized,
+      so we'll need to multiply by some magnitude to get the appropriate distance
+      in that direction.
+  + Aaaand there's a somewhat convoluted, but functional debug call to draw a debug
+    line! Checkout GrabberComponent.cpp for the code. Not actually ray casting, but
+    gives a helpful visual.
+  + Tip: Eject from character while playing with F8.
+  + View Modes
+    - In viewport, select View
+      > Player Collision Mode: Cyan=Static, Pink=Movable, Green=Volume, Green2=Physics
+        + Represents the actual collision meshes
+        + Needs to be enabled via Show > Developer > Ray Tracing Debug
+        + Enable physics for an object w/ "Simulate Physics" checkbox
+          - Can also define mass!
+          - Might need to set ObjectType under Collision Presets to "PhysicsBody"
+      > Visibility Collision:
+        + Represents the mesh the player can see
+  + Actual Ray-Tracing
+    - Can select between Player Collision and Visibility collision for ray-casting!
+    - Two ways to filter ray-traces: by type of trace or object type (ie PhysicsBody)
+      > Can manage physics types via Project Settings > Engine > Collision
+      > Object Channels is where you'd add your own! 

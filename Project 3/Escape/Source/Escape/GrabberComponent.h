@@ -15,6 +15,10 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPE_API UGrabberComponent : public UActorComponent {
 	GENERATED_BODY()
 
+public:
+	UPROPERTY(EditAnywhere)
+	float PlayerReach = 150.f;
+
 public:	
 	UGrabberComponent();
 
