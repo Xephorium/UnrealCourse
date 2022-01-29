@@ -14,14 +14,11 @@
  */
 
 
-/*--- Constructor ---*/
+/*--- Lifecycle Functions ---*/
 
 UShuffleComponent::UShuffleComponent() {
 	PrimaryComponentTick.bCanEverTick = true;
 }
-
-
-/*--- Lifecycle Methods ---*/
 
 void UShuffleComponent::BeginPlay() {
 	Super::BeginPlay();

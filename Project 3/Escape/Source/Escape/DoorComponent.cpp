@@ -13,14 +13,11 @@
  */
 
 
-/*--- Constructor ---*/
+/*--- Lifecycle Functions ---*/
 
 UDoorComponent::UDoorComponent() {
 	PrimaryComponentTick.bCanEverTick = true;
 }
-
-
-/*--- Lifecycle Functions ---*/
 
 void UDoorComponent::BeginPlay() {
 	Super::BeginPlay();

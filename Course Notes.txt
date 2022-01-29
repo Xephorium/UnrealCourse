@@ -451,10 +451,29 @@
     - Ex: lives available, time limit, score needed to end, etc
     - More Deets: https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Framework/GameMode/
   + GameState: Handles the tracking and delegating of rule-related events to players.
+  + All of these can be defined in Project Settings
 
-4.115: Blueprint
-  + Why: Flexible! Can test and modify things quickly. Good for building templates of
-         things that can be instanced in the scene.
-  + Converting from Cpp
-    - Select DefaultPawn (by ejecting while in Play) > Blueprint dropdown > Convert
-      Selected Actor to Blueprint Class
+4.115: Blueprints
+  + Why: Flexible! Can test and modify quickly. Good for building templates of
+         things that can be instantiated multiple times in the scene.
+  + Extending Existing C++ Object in Blueprint
+    - Select DefaultPawn (by ejecting while in Play) [Or whatever object] > Blueprint
+      dropdown > Convert Selected Actor to Blueprint Class
+  + Extending Existing C++ Class in Blueprint
+    - Select class (content browser) > right click > Create Blueprint Class Based on
+      CppClassName > Follow Setup Wizard
+  + All that said: Better to setup project as C++ initially. Easy to extend C++ in
+    a Blueprint, difficult to go the other way.
+
+4.117: Ray-Casting! :D
+  + New Method
+      // Returns location & rotation as out parameters
+      GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(loc, rot);
+  + Out Parameters Macro
+    - We want a way to explicitly mark our our parameters. Technically, this isn't
+      needed. The code will work by simply passing in the variables we want to change.
+      But, it makes a significant difference for readability! So, let's build a macro.
+    - See GrabberComponent.cpp for the code.
+    - It's recommended that we define Macros in C++, not the header file. This is
+      because headers might be included in many places and we don't want our custom
+      Macros to unexpectly change the behavior of other people's code.
