@@ -1,6 +1,8 @@
 
 #include "DoorComponent.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/PlayerController.h"
+#include "Engine/World.h"
 
 /*
  *  DoorComponent.cpp                                Chris Cruzen
@@ -25,6 +27,9 @@ void UDoorComponent::BeginPlay() {
 
 	// Implementation #1
 	//OpenDoorImmediately();
+
+	// Implementation #2
+	RetrieveObjectReferences();
 }
 
 void UDoorComponent::TickComponent(
@@ -63,6 +68,24 @@ void UDoorComponent::OpenDoorImmediately() const {
 	GetOwner()->SetActorRotation(NewRotation);
 }
 
+// Note: This function retrieves and null checks the unreal
+//       objects needed for implementation #2.
+void UDoorComponent::RetrieveObjectReferences() {
+	
+	// Get Player Pawn
+	TriggeringActor = GetWorld()->GetFirstPlayerController()->GetPawn();
+
+	// Perform Initialization Null Checks
+	if (!PressurePlate) {
+		UE_LOG(
+			LogTemp,
+			Error,
+			TEXT("%s has DoorComponent, but no PressurePlate set."),
+			*GetOwner()->GetName()
+		);
+	}
+}
+
 // Note: This function initializes the values needed for implementation #2.
 void UDoorComponent::InitializeAnimationVariables() {
 
@@ -83,6 +106,11 @@ void UDoorComponent::InitializeAnimationVariables() {
 //       opening of our door when activated by the PressurePlate trigger
 //       volume.
 void UDoorComponent::OpenDoorWhenTriggered(float DeltaTime) {
+
+	// Perform Passive Null Check
+	if (!PressurePlate) {
+		return;
+	}
 
 	// Check for Trigger Volume Activation
 	if (PressurePlate->IsOverlappingActor(TriggeringActor) && !RotationStarted) {
@@ -133,4 +161,13 @@ void UDoorComponent::OpenDoorWhenTriggered(float DeltaTime) {
 			}
 		}
 	}
+}
+
+// Note: This function contains extras! Cool info covered in the slides that I'd
+//       like to record without working into my solution.
+void UDoorComponent::Extras() const {
+
+	// Returns time since the beginning of play!
+	// Can be used to make timers.
+	GetWorld()->GetTimeSeconds();
 }

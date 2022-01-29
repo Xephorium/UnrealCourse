@@ -15,8 +15,7 @@
  */
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class ESCAPE_API UDoorComponent : public UActorComponent
-{
+class ESCAPE_API UDoorComponent : public UActorComponent {
 	GENERATED_BODY()
 
 public:
@@ -57,8 +56,9 @@ public:
 
 private:
 	void OpenDoorImmediately() const;
+	void RetrieveObjectReferences();
 	void InitializeAnimationVariables();
 	void OpenDoorWhenTriggered(float DeltaTime);
+	void Extras() const;
 
-		
 };

@@ -427,3 +427,34 @@
   + Polling vs Events
     - Polling: Constantly checking a condition
     - Event: When event is fired, thing happens
+
+4.109: Null Protection
+  + if (ThingThatCanBeNull) { /* Put code here. */ }
+
+4.110: Programmatic Actor Access
+  + GetOwner() allows us to search up the parent tree.
+  + GetWorld() allows us to search down!
+    - GameMode specifies a Default Pawn Class. Thing of this as the
+      player's body. Transient - comes in and out of existence as play
+      begins and ends.
+    - GameMode also specifies the Default Player Controller! This is the
+      player's mind. Persists throughout lifecycle. Can use PlayerController
+      to get access to Pawn (body).
+
+4.113: Good Coding Practices
+  + No magic numbers!
+  + Give consideration to which members are worth exposing to the Editor.
+    - Also, give default values.
+
+4.114: The Big UE4 Classes
+  + GameMode: Contains the rules that define how a game is played.
+    - Ex: lives available, time limit, score needed to end, etc
+    - More Deets: https://docs.unrealengine.com/4.27/en-US/InteractiveExperiences/Framework/GameMode/
+  + GameState: Handles the tracking and delegating of rule-related events to players.
+
+4.115: Blueprint
+  + Why: Flexible! Can test and modify things quickly. Good for building templates of
+         things that can be instanced in the scene.
+  + Converting from Cpp
+    - Select DefaultPawn (by ejecting while in Play) > Blueprint dropdown > Convert
+      Selected Actor to Blueprint Class
