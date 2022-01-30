@@ -505,7 +505,33 @@
       > Object Channels is where you'd add your own!
 
 4.121: Finding Components by Class
-  + PhysicsHandleComponent - Allows us to move other physics objects around! :O
+  + PhysicsHandleComponent
+    - Allows us to move other physics objects around! :O
+    - 
 
 4.122: Input Binding
-  + All Actors have an InputComponent by default. Behavior is built into class. 
+  + All Actors have an InputComponent by default. Behavior is built into class.
+
+4.123: Accessors & Memory Layout
+  + Overview
+    - Arrow, dot, and :: accessors
+    - Virtual memory
+    - Permanant storage, stack and heap
+    - Heap = free store
+    - How accessor operators relate to memory
+  + Sending &UGrabberComponent::Grab to our BindAction method
+    - Sending the address of the function in memory.
+    - No parenthesis! This is because we're not actually calling the function.
+  + Virtual Memory Overview
+    - Virtual memory is a block of memory that's been reserved for our game. Can
+      be in RAM or on a hard drive. Consists of three parts:
+      > Permanent Memory - Known at compile-time. Doesn't change.
+      > Dynamic Memory - Constantly changing as needed at runtime.
+        + Stack
+        + Heap (free store)
+    - We use the scope operator (::) for addresses that are stored in permanent
+      memory, like function locations! This is because they're constant and
+      known at compile-time.
+    - We use dot operator (.) for instances or references that are stored in
+      dynamic memory.
+    - We use the arrow operator (->) for pointers that are stored in dynamic mem.

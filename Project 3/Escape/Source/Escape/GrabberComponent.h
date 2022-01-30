@@ -29,6 +29,8 @@ private:
 	//       than we try to reference it.
 	UPhysicsHandleComponent *PhysicsHandleComponent = nullptr;
 	UInputComponent *InputComponent = nullptr;
+	FVector PlayerLocation;
+	FVector RaycastEndPoint;
 
 public:	
 	UGrabberComponent();
@@ -44,5 +46,12 @@ public:
 	) override;
 		
 private:
+	void InitializeMemberClasses();
+	void BindInputActions();
+
+	void UpdatePlayerView();
+	AActor *GetActorInView();
+	
 	void GrabObject();
+	void ReleaseObject();
 };

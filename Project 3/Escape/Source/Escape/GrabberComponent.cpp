@@ -1,3 +1,4 @@
+#include "Components/PrimitiveComponent.h"
 #include "DrawDebugHelpers.h"
 #include "GrabberComponent.h"
 #include "GameFramework/Actor.h"
@@ -30,28 +31,8 @@ UGrabberComponent::UGrabberComponent() {
 void UGrabberComponent::BeginPlay() {
 	Super::BeginPlay();
 
-	// Search Owning Actor for a Specific Component Type (Returns first found!)
-	PhysicsHandleComponent = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
-	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
-
-	// Null Check PhysicsHandleComponent
-	if (!PhysicsHandleComponent) {
-		UE_LOG(
-			LogTemp,
-			Error,
-			TEXT("No PhysicsHandleComponent found on Actor %s"),
-			*GetOwner()->GetName()
-		);
-	}
-
-	// Bind Input Actions
-	InputComponent->BindAction(
-		TEXT("Grab"), 
-		EInputEvent::IE_Pressed,
-		this, // A new keyword! Returns a pointer to the calling object.
-		&UGrabberComponent::GrabObject // Note: no parenthesis!
-	);
-	
+	InitializeMemberClasses();
+	BindInputActions();
 }
 
 void UGrabberComponent::TickComponent(
@@ -61,16 +42,8 @@ void UGrabberComponent::TickComponent(
 ) {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// Get Player Location/Rotation
-	FVector PlayerLocation = FVector();
-	FRotator PlayerRotation = FRotator();
-	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
-		OUT PlayerLocation,
-		OUT PlayerRotation
-	);
-
-	// Calculate Raycast End Point 
-	FVector RaycastEndPoint = PlayerLocation + PlayerRotation.Vector() * PlayerReach;
+	// Update Player View
+	UpdatePlayerView();
 
 	// Draw Debug Raycast
 	DrawDebugLine(
@@ -84,13 +57,74 @@ void UGrabberComponent::TickComponent(
 		0.5f
 	);
 
-	// Perform Raycast
+	// If Object Grabbed, Update Location
+	if (PhysicsHandleComponent->GrabbedComponent) {
+		PhysicsHandleComponent->SetTargetLocation(RaycastEndPoint);
+	}
+}
+
+
+/*--- Private Functions ---*/
+
+void UGrabberComponent::InitializeMemberClasses() {
+
+	// Search Owning Actor for a Specific Component Type (Returns first found!)
+	PhysicsHandleComponent = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+
+	// Null Check PhysicsHandleComponent
+	if (!PhysicsHandleComponent) {
+		UE_LOG(
+			LogTemp,
+			Error,
+			TEXT("No PhysicsHandleComponent found on Actor %s"),
+			*GetOwner()->GetName()
+		);
+	}
+}
+
+void UGrabberComponent::BindInputActions() {
+	if (InputComponent) {
+		InputComponent->BindAction(
+			TEXT("Grab"), 
+			EInputEvent::IE_Pressed,
+			this, // A new keyword! Returns a pointer to the calling object.
+			&UGrabberComponent::GrabObject // Note: no parenthesis!
+		);
+		InputComponent->BindAction(
+			TEXT("Grab"), 
+			EInputEvent::IE_Released,
+			this,
+			&UGrabberComponent::ReleaseObject
+		);
+	}
+}
+
+void UGrabberComponent::UpdatePlayerView() {
+
+	// Update Player Location/Rotation
+	PlayerLocation = FVector();
+	FRotator PlayerRotation = FRotator();
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(
+		OUT PlayerLocation,
+		OUT PlayerRotation
+	);
+
+	// Update Raycast End Point 
+	RaycastEndPoint = PlayerLocation + PlayerRotation.Vector() * PlayerReach;
+}
+
+AActor *UGrabberComponent::GetActorInView() {
+
+	// Initialize Raycast Variavbles
 	FHitResult RaycastHit;
 	FCollisionQueryParams RaycastParams = FCollisionQueryParams(
 		FName(TEXT("")), // ???
 		false, // Whether to use Visibility Collision
 		GetOwner()// Any Actor to ignore? (Player!)
 	);
+
+	// Perform Raycast
 	GetWorld()->LineTraceSingleByObjectType(
 		OUT RaycastHit,
 		PlayerLocation,
@@ -99,18 +133,24 @@ void UGrabberComponent::TickComponent(
 		RaycastParams
 	);
 
-	// Log Raycast Hit Actor
-	AActor *RaycastHitActor = RaycastHit.GetActor();
-	if (RaycastHitActor) {
-		UE_LOG(LogTemp, Warning, TEXT("Detected Actor: %s"), *RaycastHitActor->GetName());
-	}
-
-	// Identify object in view (and whether we can interact)
+	return RaycastHit.GetActor();
 }
 
-
-/*--- Private Functions ---*/
-
 void UGrabberComponent::GrabObject() {
-	UE_LOG(LogTemp, Error, TEXT("This is a test!"));
+	AActor * RaycastHitActor = GetActorInView();
+
+	// If Actor Found, Grab
+	if (RaycastHitActor) {
+		PhysicsHandleComponent->GrabComponentAtLocation(
+			Cast<UPrimitiveComponent>(
+				RaycastHitActor->GetComponentByClass(UPrimitiveComponent::StaticClass())
+			),
+			NAME_None,
+			RaycastHitActor->GetActorLocation()
+		);
+	}
+}
+
+void UGrabberComponent::ReleaseObject() {
+	PhysicsHandleComponent->ReleaseComponent();
 }
