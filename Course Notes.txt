@@ -496,8 +496,16 @@
           - Might need to set ObjectType under Collision Presets to "PhysicsBody"
       > Visibility Collision:
         + Represents the mesh the player can see
+  + C++ Syntax Notes
+    - To access Enum values: EnumName::EnumValue;
   + Actual Ray-Tracing
     - Can select between Player Collision and Visibility collision for ray-casting!
     - Two ways to filter ray-traces: by type of trace or object type (ie PhysicsBody)
       > Can manage physics types via Project Settings > Engine > Collision
-      > Object Channels is where you'd add your own! 
+      > Object Channels is where you'd add your own!
+
+4.121: Finding Components by Class
+  + PhysicsHandleComponent - Allows us to move other physics objects around! :O
+
+4.122: Input Binding
+  + All Actors have an InputComponent by default. Behavior is built into class. 

@@ -29,6 +29,28 @@ UGrabberComponent::UGrabberComponent() {
 
 void UGrabberComponent::BeginPlay() {
 	Super::BeginPlay();
+
+	// Search Owning Actor for a Specific Component Type (Returns first found!)
+	PhysicsHandleComponent = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+
+	// Null Check PhysicsHandleComponent
+	if (!PhysicsHandleComponent) {
+		UE_LOG(
+			LogTemp,
+			Error,
+			TEXT("No PhysicsHandleComponent found on Actor %s"),
+			*GetOwner()->GetName()
+		);
+	}
+
+	// Bind Input Actions
+	InputComponent->BindAction(
+		TEXT("Grab"), 
+		EInputEvent::IE_Pressed,
+		this, // A new keyword! Returns a pointer to the calling object.
+		&UGrabberComponent::GrabObject // Note: no parenthesis!
+	);
 	
 }
 
@@ -47,10 +69,10 @@ void UGrabberComponent::TickComponent(
 		OUT PlayerRotation
 	);
 
-	//UE_LOG(LogTemp, Warning, TEXT("Player Location: %s"), *PlayerLocation.ToString());
-
-	// Draw Raycast
+	// Calculate Raycast End Point 
 	FVector RaycastEndPoint = PlayerLocation + PlayerRotation.Vector() * PlayerReach;
+
+	// Draw Debug Raycast
 	DrawDebugLine(
 		GetWorld(),
 		PlayerLocation,
@@ -62,6 +84,33 @@ void UGrabberComponent::TickComponent(
 		0.5f
 	);
 
+	// Perform Raycast
+	FHitResult RaycastHit;
+	FCollisionQueryParams RaycastParams = FCollisionQueryParams(
+		FName(TEXT("")), // ???
+		false, // Whether to use Visibility Collision
+		GetOwner()// Any Actor to ignore? (Player!)
+	);
+	GetWorld()->LineTraceSingleByObjectType(
+		OUT RaycastHit,
+		PlayerLocation,
+		RaycastEndPoint,
+		FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody),
+		RaycastParams
+	);
+
+	// Log Raycast Hit Actor
+	AActor *RaycastHitActor = RaycastHit.GetActor();
+	if (RaycastHitActor) {
+		UE_LOG(LogTemp, Warning, TEXT("Detected Actor: %s"), *RaycastHitActor->GetName());
+	}
+
 	// Identify object in view (and whether we can interact)
 }
 
+
+/*--- Private Functions ---*/
+
+void UGrabberComponent::GrabObject() {
+	UE_LOG(LogTemp, Error, TEXT("This is a test!"));
+}
