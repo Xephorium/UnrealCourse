@@ -535,3 +535,25 @@
     - We use dot operator (.) for instances or references that are stored in
       dynamic memory.
     - We use the arrow operator (->) for pointers that are stored in dynamic mem.
+
+4.127: Iteration Through Valid Actors
+  + Note: To get an actor to trigger TriggerVolume events, you have to enable
+          "Generate Overlap Events" in the physics section of Collision
+  + Getting a list of actors:
+      TArray<AActor> *ActorsInTriggerVolume;
+      PressurePlate->GetOverlappingActors(OUT ActorsInTriggerVolume);
+  + Iterating Through The Actors
+      for (AActor *Actor : ActorsInTriggerVolume) {
+        TotalMass += Actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+      }
+
+4.128: Null Pointer Protection
+  1. Always check a pointer for null before use
+  2. Always initialize pointers to nullptr
+  + Syntax: 
+    if (Thing == nullptr) is the same as if (!Thing)
+
+4.129: Adding Audio
+  + To use audio with object, add AudioComponent. Disable "auto activate" (which
+    is apparently on by default and plays the sound immediately upon play :/)
+  + GetOwner()->GetComponentByClass<AudioComponent>();
