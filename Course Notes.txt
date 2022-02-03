@@ -268,7 +268,7 @@
       FBullCowCount Count = {2, 3}; // Can initialize members this way. Pretty weird imo.
 
 
-/*--- Ch 4: Building Escape ---*/
+/*--- Ch 4: Escape ---*/
 
 4.86: Welcome
   + Topics
@@ -557,3 +557,7 @@
   + To use audio with object, add AudioComponent. Disable "auto activate" (which
     is apparently on by default and plays the sound immediately upon play :/)
   + GetOwner()->GetComponentByClass<AudioComponent>();
+
+
+/*--- Ch 5: Toon Tanks ---*/
+
