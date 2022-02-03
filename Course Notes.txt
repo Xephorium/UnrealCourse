@@ -561,3 +561,42 @@
 
 /*--- Ch 5: Toon Tanks ---*/
 
+5.133: Creating Pawn Class
+  + BasePawn Class
+    - Will contain shared behavior between tank and turret!
+    - Has mesh, capsule component, ability to launch projectiles.
+  + Pawns vs Characters vs Actors (Choosing a class)
+    - Actor: Can be placed in world, can have visual representation (mesh, etc.)
+    - Pawn: Has Actor attributes, but can be posessed by a Controller! Handles
+      movement input.
+    - Character: Has pawn attributes, but with a CharacterMovementComponent!
+      Can swim, move, etc. Works best for bipedal characters. Probably more than
+      we need for our tanks here.
+    - Note: File > Refresh VSCode Project after adding a C++ class! UE4 no longer
+            does this automatically in 4.26 :|
+
+5.134: Components
+  + Intro
+    - Have Attachments - Can attach other components
+    - There's also a Root Component (Stores transform information for pawn)
+  + Choosing a Component
+    - USceneComponent: Has tranform, supports attachment, No visual representation
+    - UCapsuleComponent: Derived from USceneComponent, also handles collision
+    - UStaticMeshComponent: Derived from USceneComponent, allows us to attach mesh
+    - By default, pawn already has a USceneComponent called RootComponent. Comes
+      from Actor class! All actors have this!
+      + No visual representation. However, we can reassign this member with a
+        component that supports a mesh (like a CapsuleComponent).
+      + We can also attach a new component to the RootComponent (like TurretMesh
+        attached to BaseMesh on RootComponent).
+      + We can ALSO attach a SceneComponent to our TurretMesh, which provides
+        a nice ProjectileSpawnPoint! Remember SceneComponent has no visual
+        representation, which is fine for a spawn point.
+      + So altogether:
+          RootComponent (UCapsuleComponent - Has collision for pawn)
+          \_ BaseMesh (UStaticMeshComponent - Has mesh for tank body)
+             \_TurretMesh (UStaticMeshComponent - Has mesh for tank turret)
+                \_ ProjectileSpawnPoint (USceneComponent - Just a spawn point)
+      + Attachment
+        - As a component moves, attached components will move with it! But they
+          do have their own relative transform, which we can manipulate. 

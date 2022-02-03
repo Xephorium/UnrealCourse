@@ -1,0 +1,27 @@
+[
+	{
+		"file": "E:\\\\Game Dev\\\\Unreal Projects\\\\Udemy 2022\\\\Project 4\\\\Toon Tanks\\\\Source\\\\ToonTanks\\\\BasePawn.cpp",
+		"command": "cl.exe @\"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 4\\Toon Tanks\\.vscode\\compileCommands_ToonTanks\\ToonTanks.187.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "E:\\\\Game Dev\\\\Unreal Projects\\\\Udemy 2022\\\\Project 4\\\\Toon Tanks\\\\Source\\\\ToonTanks\\\\BasePawn.h",
+		"command": "cl.exe @\"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 4\\Toon Tanks\\.vscode\\compileCommands_ToonTanks\\ToonTanks.187.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "E:\\\\Game Dev\\\\Unreal Projects\\\\Udemy 2022\\\\Project 4\\\\Toon Tanks\\\\Source\\\\ToonTanks\\\\ToonTanks.Build.cs",
+		"command": "cl.exe @\"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 4\\Toon Tanks\\.vscode\\compileCommands_ToonTanks\\ToonTanks.187.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "E:\\\\Game Dev\\\\Unreal Projects\\\\Udemy 2022\\\\Project 4\\\\Toon Tanks\\\\Source\\\\ToonTanks\\\\ToonTanks.cpp",
+		"command": "cl.exe @\"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 4\\Toon Tanks\\.vscode\\compileCommands_ToonTanks\\ToonTanks.187.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "E:\\\\Game Dev\\\\Unreal Projects\\\\Udemy 2022\\\\Project 4\\\\Toon Tanks\\\\Source\\\\ToonTanks\\\\ToonTanks.h",
+		"command": "cl.exe @\"E:\\Game Dev\\Unreal Projects\\Udemy 2022\\Project 4\\Toon Tanks\\.vscode\\compileCommands_ToonTanks\\ToonTanks.187.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	}
+]
