@@ -15,6 +15,10 @@ UCLASS()
 class TOONTANKS_API ABasePawn : public APawn {
 	GENERATED_BODY()
 
+private:
+	UPROPERTY()
+	class UCapsuleComponent *CapsuleComponent;
+
 public:
 	ABasePawn();
 

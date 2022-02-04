@@ -599,4 +599,45 @@
                 \_ ProjectileSpawnPoint (USceneComponent - Just a spawn point)
       + Attachment
         - As a component moves, attached components will move with it! But they
-          do have their own relative transform, which we can manipulate. 
+          do have their own relative transform, which we can manipulate.
+  + Components in Blueprint
+    - Component heirarchy is visualized in left Component window.
+    - Can drag components onto Root to replace!
+    - Can also drag components onto other components to attach.
+
+5.135: Forward Declarations & Capsule Component
+  + C++ Class Structure:
+    - BasePawn (Supports Mase Mesh, Turret Mesh, Capsule, & Spawn Point)
+      > TankBP
+      > TurretBP
+  + C++ Notes
+    - UPROPERTY is a Macro! Allows us to participate in Unreal Engine's Reflection
+      system. (ie. where can we see things? Where can we change them?)
+    - Forward Declaration
+      > Including dumps entire included header into current header! Can end up
+        with massive files when you include lots of things. As an alternative:
+      > Forward Declaration!
+        + "class" keyword basically says "we will define this class where we
+          use it. Trust us." This is possible because we don't need the implementation
+          details in the header. Just a member pointer (address). No size needed.
+        + We can then include the header in c++.
+        + Forward Declaration won't work for class extension. (ie. we must include
+          Pawn for our class to inherit from Pawn.)
+        + Best Practice: Only include things where you need them!
+        + Question: Why avoid include in header when we're just going to include
+                    in C++ file anyway? - Headers are designed to be modular and
+                    included in other classes. If everyone did this, every header
+                    would include every other header in a massive chain! Biggest
+                    files in C++.
+    - Intellisense is useless! Pretty much ignore it.
+    - C++ compile errors are also mostly useless. May give you an insane stack trace
+      with one actual problem in there.
+
+5:136. Constructing the Capsule
+  + New Function!
+      CreateDefaultSubobject<type>(TEXT("ObjectName"));
+  + Example:
+      CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TankMesh")); // Returns Address!
+  + Related:
+      GetDefaultSubobjectByName(TEXT("TankMesh"));
+  + Then, assigning to root is as simple as assigning to RootComponent variable.

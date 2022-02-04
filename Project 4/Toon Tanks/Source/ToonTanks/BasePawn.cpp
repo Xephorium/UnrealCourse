@@ -1,4 +1,5 @@
 #include "BasePawn.h"
+#include "Components/CapsuleComponent.h"
 
 /*
  *  BasePawn.cpp                                      Chris Cruzen
@@ -13,6 +14,12 @@
 
 ABasePawn::ABasePawn() {
 	PrimaryActorTick.bCanEverTick = true;
+
+	// Create New Capsule Component!
+	CapsuleComponent = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule Component"));
+
+	// Assign New Capsule Component to Root
+	RootComponent = CapsuleComponent;
 }
 
 void ABasePawn::BeginPlay() {
