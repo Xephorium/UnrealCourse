@@ -633,7 +633,7 @@
     - C++ compile errors are also mostly useless. May give you an insane stack trace
       with one actual problem in there.
 
-5:136. Constructing the Capsule
+5.136. Constructing the Capsule
   + New Function!
       CreateDefaultSubobject<type>(TEXT("ObjectName"));
   + Example:
@@ -641,3 +641,25 @@
   + Related:
       GetDefaultSubobjectByName(TEXT("TankMesh"));
   + Then, assigning to root is as simple as assigning to RootComponent variable.
+
+5.137: Static Mesh Components
+  + C++ Note:
+    - UStaticMeshComponent is included in Actor by default! No need to forward declare.
+    - SetupAttachment() is available on all SceneComponents
+
+5.138: Deriving Blueprint Classes
+  + Can create blueprint from C++!
+    - Allows us to customize attributes in-editor. Much like a prefab in Unity!
+  + Have to explicitly expose properties of components created via C++
+
+5.139: Instance Blueprint vs Default Blueprint
+  + Exposing properties to blueprint
+    - Visibility Modifiers
+      > VisibleAnywhere     // See anywhere, no write
+      > EditAnywhere        // See/edit anywhere
+      > VisibleInstanceOnly // See property only on instances of BP! Not Default BP.
+      > EditInstanceOnly    // See/edit property only on instances of BP! Not Default BP.
+      > VisibleDefaultsOnly // See property only on default BP. Not instances. 
+      > EditDefaultsOnly    // See property only on default BP. Not instances.
+      > BlueprintReadOnly
+      > BlueprintReadWrite

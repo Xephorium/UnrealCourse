@@ -18,6 +18,12 @@ class TOONTANKS_API ABasePawn : public APawn {
 private:
 	UPROPERTY()
 	class UCapsuleComponent *CapsuleComponent;
+	UPROPERTY()
+	UStaticMeshComponent *BaseMesh;
+	UPROPERTY()
+	UStaticMeshComponent *TurretMesh;
+	UPROPERTY()
+	USceneComponent *ProjectileSpawnPoint;
 
 public:
 	ABasePawn();

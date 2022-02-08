@@ -20,6 +20,19 @@ ABasePawn::ABasePawn() {
 
 	// Assign New Capsule Component to Root
 	RootComponent = CapsuleComponent;
+
+	// Create New Mesh Component & Attach to Root Component
+	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
+	BaseMesh->SetupAttachment(CapsuleComponent);
+
+	// Create New Mesh Component & Attach to Base Mesh
+	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Turret Mesh"));
+	TurretMesh->SetupAttachment(BaseMesh);
+
+	// Create New Scene Component & Attach to Turret Mesh
+	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Spawn Point"));
+	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
+
 }
 
 void ABasePawn::BeginPlay() {
